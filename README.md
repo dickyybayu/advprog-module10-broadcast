@@ -44,3 +44,15 @@ In the second case, I corrected the configuration by ensuring that both the serv
 With matching ports, the client successfully established a connection. Upon connecting, it received a welcome message from the server, confirming that the WebSocket handshake completed properly and the asynchronous communication channel was functional.
 
 This successful connection confirms that matching ports are essential for establishing reliable WebSocket communication. It also reinforces the idea that network-level details, like ports and IP addresses, must be aligned between parties to enable proper protocol negotiation.
+
+## Small changes. Add some information to client
+
+![Server](/screenshot/serversmallchanges.png)
+![Client1](/screenshot/clientsmallchanges1.png)
+![Client2](/screenshot/clientsmallchanges2.png)
+
+In this experiment, I modified the server to include the sender’s IP address and port in each broadcasted message. Since there’s no username system, this helps identify which client sent which message.
+
+On the server side (server.rs), I changed the broadcast line from bcast_tx.send(text.into()) to bcast_tx.send(format!("{addr} : {text}")), so each message includes the sender’s address. On the client side (client.rs), I adjusted the println! to prefix the output with the client’s label for clarity.
+
+This small change improves the chat experience by making messages traceable and simulates a simple identification system for each client.
